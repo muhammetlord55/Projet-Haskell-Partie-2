@@ -1,19 +1,18 @@
-module Problem1
+module Problem2
   ( s0
   , fatherAnn
   , aliceIgn
   , bobIgn
-  , problem1
+  , problem2
   ) where
 
 import EL
 
+
 interp :: Prop -> [World]
 interp "as" = [2, 3]
-interp "bs" = [1, 3] 
+interp "bs" = [1, 3]
 interp _    = []
-
-
 
 indis :: Agent -> World -> [World]
 indis "a" 0 = [0, 2]
@@ -26,15 +25,11 @@ indis "b" 2 = [2, 3]
 indis "b" 3 = [2, 3]
 indis _ w   = [w]
 
-
 s0 :: EpiState
-s0 = (interp, indis, 1)
-
+s0 = (interp, indis, 3)
 
 fatherAnn :: EpiFormula
 fatherAnn = Or (Var "as") (Var "bs")
-
-
 
 aliceIgn :: EpiFormula
 aliceIgn = And (Not (Knows "a" (Var "as")))
@@ -45,10 +40,10 @@ bobIgn = And (Not (Knows "b" (Var "bs")))
              (Not (Knows "b" (Not (Var "bs"))))
 
 
-problem1 :: EpiFormula
-problem1 =
+problem2 :: EpiFormula
+problem2 =
   And (And aliceIgn bobIgn)
       (After fatherAnn
-        (And aliceIgn
-             (After (Knows "b" (Var "bs"))
+        (And (And aliceIgn bobIgn)
+             (After (And aliceIgn bobIgn)
                (And (Not aliceIgn) (Not bobIgn)))))
