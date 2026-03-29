@@ -22,4 +22,4 @@ s0 = (interp1, indis1, 01)
 
 fatherAnn = Or (Var "as") (Var "bs")
 bobKnows = Knows "b" (Var "bs")
-testFormula = After fatherAnn bobKnowsgh
+testFormula = After fatherAnn bobKnowsghOpen
